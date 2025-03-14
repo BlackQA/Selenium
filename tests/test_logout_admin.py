@@ -28,8 +28,8 @@ def test_logout_admin(logout_admin_page):
             expected_title_after_login in logout_admin_page.get_title()
         ), f"Ожидаемый заголовок '{expected_title_after_login}' не соответствует фактическому заголовку '{logout_admin_page.get_title()}'"
     except Exception as e:
-        pytest.fail(
-            f"Заголовок страницы не изменился, вход в систему не был выполнен: {e}"
-        )
+        assert (
+            False
+        ), f"Заголовок страницы не изменился, вход в систему не был выполнен: {e}"
 
     logout_admin_page.logout()

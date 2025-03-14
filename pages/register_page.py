@@ -16,7 +16,7 @@ class RegisterPage:
         self.wait = WebDriverWait(browser, 5)
 
     def open(self):
-        catalog_url = self.base_url + "/index.php?route=account/register"
+        catalog_url = self.base_url + "/en-gb?route=account/register"
         self.browser.get(catalog_url)
 
     def get_firstname_input(self):
