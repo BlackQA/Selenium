@@ -8,3 +8,6 @@ from .home_page import HomePage
 from .cart_page import CartPage
 from .currency_switch_home import SwitchHomePage
 from .currency_switch_catalog import SwitchCatalogPage
+from .admin_product_new_pages import AdminProductNew
+from .admin_delete_product_pages import AdminProductDelete
+from .register_new_user_pages import RegisterNewUser
