@@ -9,10 +9,7 @@ class AdminProductDelete:
     Button_login = (By.XPATH, "//*[@id='form-login']/div[3]/button")
     Catalog_button = (By.XPATH, "//*[@id='menu-catalog']/a")
     Product_button = (By.XPATH, "//*[@id='collapse-1']/li[2]/a")
-    Checkbox_button = (
-        By.XPATH,
-        "//*[@id='form-product']/div[1]/table/tbody/tr[1]/td[1]/input",
-    )
+    Checkbox_button = (By.XPATH, "//*[@id='form-product']/div[1]/table/tbody/tr[1]/td[1]/input",)
     Delete_button = (By.XPATH, "//*[@id='content']/div[1]/div/div/button[3]")
     Alert = (By.XPATH, "//*[@id='alert']")
 
@@ -39,25 +36,27 @@ class AdminProductDelete:
         password_input.clear()
         password_input.send_keys(password)
 
-    def click_login_button(self):
-        button = self.wait.until(EC.element_to_be_clickable(self.Button_login))
+    def _click(self, locator):
+        button = self.wait.until(
+            EC.element_to_be_clickable(locator),
+            f"Элемент с локатором {locator} не кликабелен",
+        )
         button.click()
+
+    def click_login_button(self):
+        self._click(self.Button_login)
 
     def click_catalog_button(self):
-        button = self.wait.until(EC.element_to_be_clickable(self.Catalog_button))
-        button.click()
+        self._click(self.Catalog_button)
 
     def click_product_button(self):
-        button = self.wait.until(EC.element_to_be_clickable(self.Product_button))
-        button.click()
+        self._click(self.Product_button)
 
     def click_checkbox_button(self):
-        button = self.wait.until(EC.element_to_be_clickable(self.Checkbox_button))
-        button.click()
+        self._click(self.Checkbox_button)
 
     def click_delete_button(self):
-        button = self.wait.until(EC.element_to_be_clickable(self.Delete_button))
-        button.click()
+        self._click(self.Delete_button)
 
     def get_success_message(self, expected_text="Success: You have modified products!"):
         success_message = self.wait.until(

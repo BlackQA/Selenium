@@ -44,21 +44,24 @@ class AdminProductNew:
         password_input.clear()
         password_input.send_keys(password)
 
-    def click_login_button(self):
-        button = self.wait.until(EC.element_to_be_clickable(self.Button_login))
+    def _click(self, locator):
+        button = self.wait.until(
+            EC.element_to_be_clickable(locator),
+            f"Элемент с локатором {locator} не кликабелен",
+        )
         button.click()
+
+    def click_login_button(self):
+        self._click(self.Button_login)
 
     def click_catalog_button(self):
-        button = self.wait.until(EC.element_to_be_clickable(self.Catalog_button))
-        button.click()
+        self._click(self.Catalog_button)
 
     def click_product_button(self):
-        button = self.wait.until(EC.element_to_be_clickable(self.Product_button))
-        button.click()
+        self._click(self.Product_button)
 
     def click_add_new_button(self):
-        button = self.wait.until(EC.element_to_be_clickable(self.Add_new))
-        button.click()
+        self._click(self.Add_new)
 
     def enter_product_name(self, product_input):
         product_name = self.wait.until(
@@ -73,8 +76,7 @@ class AdminProductNew:
         meta_tag.send_keys(meta)
 
     def click_data_button(self):
-        button = self.wait.until(EC.element_to_be_clickable(self.Data_button))
-        button.click()
+        self._click(self.Data_button)
 
     def enter_model_input(self, model):
         model_input = self.wait.until(
@@ -84,8 +86,7 @@ class AdminProductNew:
         model_input.send_keys(model)
 
     def click_seo_button(self):
-        button = self.wait.until(EC.element_to_be_clickable(self.Seo_button))
-        button.click()
+        self._click(self.Seo_button)
 
     def enter_seo_input(self, seo):
         seo_input = self.wait.until(EC.visibility_of_element_located(self.Seo_input))
@@ -93,8 +94,7 @@ class AdminProductNew:
         seo_input.send_keys(seo)
 
     def click_save_button(self):
-        button = self.wait.until(EC.element_to_be_clickable(self.Save_button))
-        button.click()
+        self._click(self.Save_button)
 
     def get_success_message(self, expected_text="Success: You have modified products!"):
         success_message = self.wait.until(
@@ -105,3 +105,13 @@ class AdminProductNew:
         assert (
             expected_text in actual_text
         ), f"Текст сообщения не соответствует ожидаемому. Ожидалось: '{expected_text}', получили: '{actual_text}'"
+
+    def add_product(self, product_name, meta_tag, model, seo_keyword):
+        self.click_add_new_button()
+        self.enter_product_name(product_name)
+        self.enter_meta_tag(meta_tag)
+        self.click_data_button()
+        self.enter_model_input(model)
+        self.click_seo_button()
+        self.enter_seo_input(seo_keyword)
+        self.click_save_button()

@@ -12,9 +12,6 @@ def switch_home_page(browser, base_url):
 def test_currency_change_updates_prices(switch_home_page):
     currencies = ["EUR"]
     for currency in currencies:
-        try:
-            assert switch_home_page.check_currency_change(
-                currency
-            ), f"Цены не изменились при переключении на валюту '{currency}'"
-        except AssertionError as e:
-            pytest.fail(str(e))
+        assert switch_home_page.check_currency_change(
+            currency
+        ), f"Цены не изменились при переключении на валюту '{currency}'"
